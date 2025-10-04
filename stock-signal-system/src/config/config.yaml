@@ -1,0 +1,58 @@
+# API Configuration
+api:
+  news_api:
+    base_url: "https://newsapi.org/v2"
+    timeout: 30
+    max_articles: 30
+  
+  finnhub:
+    base_url: "https://finnhub.io/api/v1"
+    timeout: 30
+    max_articles: 20
+  
+  reddit:
+    user_agent: "stock_signal_bot/1.0"
+    subreddits:
+      - wallstreetbets
+      - stocks
+      - investing
+    post_limit: 30
+
+# Signal Thresholds
+thresholds:
+  strong_buy: 0.7
+  buy: 0.4
+  hold: 0.0
+  sell: -0.4
+  strong_sell: -0.7
+
+# Analysis Weights
+weights:
+  sentiment: 0.3
+  technical: 0.7
+
+# Technical Indicator Weights
+technical_weights:
+  moving_averages: 0.4
+  rsi: 0.3
+  momentum: 0.2
+  volume: 0.1
+
+# Data Collection
+data:
+  sentiment_lookback_days: 7
+  price_history_months: 6
+  min_sentiment_sources: 10
+
+# Output
+output:
+  export_csv: true
+  generate_charts: true
+  show_dashboard: true
+  save_path: "./output"
+
+# Logging
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "./logs/stock_signals.log"
