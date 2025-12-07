@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Time Travel Elevator — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts for all eras -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Shrikhand&family=Press+Start+2P&family=Orbitron:wght@400;700&family=Verdana&family=Comic+Neue:wght@700&family=Montserrat:wght@100;300&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Tutorial Modal -->
+  <div id="tutorialModal" class="tutorial-modal" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle">
+    <div class="tutorial-content" role="document">
+      <button class="tutorial-close" id="tutorialClose" aria-label="Close tutorial">✕</button>
+      <h2 id="tutorialTitle">Time Travel Elevator</h2>
+      <p class="sr-only">Use keyboard arrows or click floor buttons to navigate through time.</p>
+      <div class="tutorial-sections">
+        <div class="tutorial-section">
+          <h3>Mission</h3>
+          <p>Explore the evolution of security architecture through time.</p>
+        </div>
+        <div class="tutorial-section">
+          <h3>Controls</h3>
+          <ul>
+            <li>Scroll to travel through eras.</li>
+            <li>Use the panel to jump to specific security domains.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tutorial-progress-container">
+        <div class="tutorial-progress-bar" id="tutorialProgressBar"></div>
+      </div>
+      <div class="tutorial-actions">
+        <button class="tutorial-skip" id="tutorialSkip">Skip</button>
+        <button class="tutorial-start" id="tutorialStart">Enter Elevator</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Layers -->
+  <div class="background-wrapper" aria-hidden="true">
+    <!-- Floor 1: 1920s Art Deco -->
+    <div class="bg-layer bg-1920s" id="bg-1">
+      <div class="deco-pattern"></div>
+      <div class="deco-border"></div>
+    </div>
+
+    <!-- Floor 2: 1960s Psychedelic -->
+    <div class="bg-layer bg-1960s" id="bg-2">
+      <div class="tie-dye-bg"></div>
+      <div class="floating-peace">☮</div>
+      <div class="floating-flower">✿</div>
+    </div>
+
+    <!-- Floor 3: 1980s Neon Cyber -->
+    <div class="bg-layer bg-1980s" id="bg-3">
+      <div class="cyber-grid-floor"></div>
+      <div class="cyber-grid-ceiling"></div>
+      <div class="neon-sun"></div>
+    </div>
+
+    <!-- Floor 4: 2000s Web -->
+    <div class="bg-layer bg-2000s" id="bg-4">
+      <div class="win-xp-hill"></div>
+      <div class="cursor-trail"></div>
+    </div>
+
+    <!-- Floor 5: 2100s Future -->
+    <div class="bg-layer bg-2100s" id="bg-5">
+      <div class="holo-particles"></div>
+      <div class="glass-panels"></div>
+    </div>
+  </div>
+
+  <main class="elevator-container">
+    <div class="elevator-shaft" id="shaft">
+
+      <!-- Floor 1: 1920s - Foundations -->
+      <section id="floor-1" class="floor floor-1 era-1920s" data-floor="1">
+        <div class="floor-content">
+          <div class="deco-frame">
+            <h1>The Blueprint</h1>
+            <p class="subtitle">Foundations & Security Architecture</p>
+            <div class="content-box">
+              <p class="tagline">Keeping secrets better than your best friend.</p>
+              <p>Enterprise Security Architecture • Risk Management • Threat Modeling • Defense in Depth</p>
+              <p class="highlight">Building security walls. Really big ones.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Floor 2: 1960s - GRC & Intelligence -->
+      <section id="floor-2" class="floor floor-2 era-1960s" data-floor="2">
+        <div class="floor-content">
+          <h2 class="groovy-text">The Control Room</h2>
+          <p class="subtitle">Governance, Risk & Compliance</p>
+          <div class="content-box">
+            <p class="tagline">I love rules. Someone has to.</p>
+            <p>Global Security Frameworks • Policy Management • Third-Party Risk • Regulatory Compliance</p>
+            <p class="highlight">Making auditors happy. It's almost a miracle.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Floor 3: 1980s - Network Defense -->
+      <section id="floor-3" class="floor floor-3 era-1980s" data-floor="3">
+        <div class="floor-content">
+          <h2 class="neon-text">The Grid</h2>
+          <p class="subtitle">Network Security</p>
+          <div class="content-box">
+            <p class="tagline">Stronger defense than your morning coffee.</p>
+            <p>Next-Gen Firewalls • SASE • Micro-segmentation • SD-WAN • Network Architecture</p>
+            <p class="highlight">I stop hackers. It's my favorite hobby.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Floor 4: 2000s - App & Cloud Security -->
+      <section id="floor-4" class="floor floor-4 era-2000s" data-floor="4">
+        <div class="floor-content">
+          <div class="browser-window">
+            <div class="window-bar">
+              <span>Internet Explorer - [Security Architect Portfolio]</span>
+              <div class="window-controls">
+                <button>_</button><button>□</button><button>X</button>
+              </div>
+            </div>
+            <div class="window-body">
+              <h2>The Nexus</h2>
+              <p class="subtitle">Cloud & Application Security</p>
+              <marquee>Cloud Security Architecture | DevSecOps | Infrastructure as Code | SIEM | XDR | Shift Left
+              </marquee>
+              <p class="tagline">The cloud is just someone else's computer. I made it safe.</p>
+              <p>Multi-Cloud Security • CI/CD Security • OWASP Top 10 • WAF • Container Security</p>
+              <p class="highlight">Fixing the internet, one server at a time.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Floor 5: 2100s - Zero Trust Future -->
+      <section id="floor-5" class="floor floor-5 era-2100s" data-floor="5">
+        <div class="floor-content">
+          <div class="holo-interface">
+            <h2>The Horizon</h2>
+            <p class="subtitle">The Future is Now</p>
+            <div class="glass-card">
+              <p class="tagline">Trust no one. Not even your toaster.</p>
+              <p>AI-Driven Security • Zero Trust Architecture • Quantum-Ready Crypto • Predictive Defense</p>
+              <p class="highlight">I don't trust robots. But I secure them.</p>
+            </div>
+            <div class="connect-links">
+              <a href="https://github.com/ip6networks" target="_blank" class="future-link">GitHub</a>
+              <a href="https://www.linkedin.com/in/ajkhurana/" target="_blank" class="future-link">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="floating-controls" aria-hidden="false">
+      <button id="soundToggle" class="sound-toggle" title="Toggle sound" aria-pressed="false">🔊</button>
+
+      <div class="elevator-panel" role="navigation" aria-label="Floor selector">
+        <div class="panel-header">ERAS</div>
+        <div class="floor-buttons">
+          <button class="floor-btn" data-floor="1"><span class="floor-num">1</span><span
+              class="floor-label">1920s</span></button>
+          <button class="floor-btn" data-floor="2"><span class="floor-num">2</span><span
+              class="floor-label">1960s</span></button>
+          <button class="floor-btn" data-floor="3"><span class="floor-num">3</span><span
+              class="floor-label">1980s</span></button>
+          <button class="floor-btn" data-floor="4"><span class="floor-num">4</span><span
+              class="floor-label">2000s</span></button>
+          <button class="floor-btn" data-floor="5"><span class="floor-num">5</span><span
+              class="floor-label">2100s</span></button>
+        </div>
+        <div class="panel-indicator" aria-hidden="true">
+          <div class="indicator-text">Year</div>
+          <div class="current-floor" id="currentFloor">1920</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Transition Overlays -->
+  <div class="transition-overlay" id="transitionOverlay" aria-hidden="true">
+    <div class="transition-effect effect-gate"></div>
+    <div class="transition-effect effect-kaleidoscope"></div>
+    <div class="transition-effect effect-vhs"></div>
+    <div class="transition-effect effect-window"></div>
+    <div class="transition-effect effect-blur"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

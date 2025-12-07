@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anoj Patel - 3D Interactive Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div class="loading-container">
+            <div class="loading-text">Initializing Neural Interface...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-subtext">Scanning facial features...</div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar" style="display: none;"></nav>
+
+    <!-- 3D Canvas Container -->
+    <div class="canvas-container">
+        <canvas id="canvas"></canvas>
+        <div class="canvas-overlay">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+        </div>
+        <!-- Portfolio Title -->
+        <div class="portfolio-title">
+            <div class="title-text">ANOJ PATEL</div>
+            <div class="title-subtitle">Interactive 3D Portfolio</div>
+        </div>
+    </div>
+
+    <!-- Interactive Hints Panel -->
+    <div class="hints-panel">
+        <div class="hints-title">👁️ Interactive Features</div>
+        <div class="hints-list">
+            <div class="hint" data-feature="eyes" data-title="Featured Projects">
+                <span class="hint-emoji">👁️</span>
+                <div>
+                    <div class="hint-label">Eyes</div>
+                    <div class="hint-text">View Projects</div>
+                </div>
+            </div>
+            <div class="hint" data-feature="nose" data-title="Technical Skills">
+                <span class="hint-emoji">👃</span>
+                <div>
+                    <div class="hint-label">Nose</div>
+                    <div class="hint-text">Tech Skills</div>
+                </div>
+            </div>
+            <div class="hint" data-feature="mouth" data-title="About Me">
+                <span class="hint-emoji">👄</span>
+                <div>
+                    <div class="hint-label">Mouth</div>
+                    <div class="hint-text">About Me</div>
+                </div>
+            </div>
+            <div class="hint" data-feature="ears" data-title="Get in Touch">
+                <span class="hint-emoji">👂</span>
+                <div>
+                    <div class="hint-label">Ears</div>
+                    <div class="hint-text">Get in Touch</div>
+                </div>
+            </div>
+            <div class="hint" data-feature="forehead" data-title="Work Experience">
+                <span class="hint-emoji">🧠</span>
+                <div>
+                    <div class="hint-label">Brain</div>
+                    <div class="hint-text">Experience</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal Panel -->
+    <div id="infoPanel" class="info-panel">
+        <div class="panel-header">
+            <div class="panel-breadcrumb" id="panelBreadcrumb">Portfolio</div>
+            <div class="panel-title" id="panelTitle">Portfolio</div>
+            <button class="close-btn" id="closeBtn">
+                <span>✕</span>
+            </button>
+        </div>
+        <div class="panel-tabs">
+            <button class="panel-tab" data-feature="eyes">👁️ Projects</button>
+            <button class="panel-tab" data-feature="nose">👃 Skills</button>
+            <button class="panel-tab" data-feature="mouth">👄 About</button>
+            <button class="panel-tab" data-feature="ears">👂 Contact</button>
+            <button class="panel-tab" data-feature="forehead">🧠 Experience</button>
+        </div>
+        <div class="panel-content" id="infoContent">
+            <!-- Dynamic content injected here -->
+        </div>
+    </div>
+
+    <!-- Background Grid Effect -->
+    <div class="grid-background"></div>
+    
+    <!-- Animated Background Lines -->
+    <div class="bg-lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <!-- Cursor Follow Effect -->
+    <div class="cursor-glow"></div>
+
+    <!-- Instructions Footer -->
+    <div class="instructions">
+        <div class="instruction-text">
+            <span class="instruction-highlight">Drag</span> to rotate • <span class="instruction-highlight">Click</span> to explore
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

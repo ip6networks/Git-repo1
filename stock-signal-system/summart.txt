@@ -1,0 +1,18 @@
+What it does: Automated stock trading signal generator combining sentiment analysis (news/Reddit/Finnhub) with technical indicators to produce BUY/SELL/HOLD recommendations.
+
+Primary outputs:
+
+
+1. Console reports (formatted tables with emoji signals)
+
+2. CSV files (timestamped export of all signals)
+
+3. Dashboard visualizations (PNG/HTML charts)
+
+4. Summary statistics
+
+Architecture: Async Python system that fetches multi-source sentiment concurrently, calculates technical indicators, combines scores with configurable weights, and generates signals with confidence levels.
+
+Signal types: STRONG BUY, BUY, HOLD, SELL, STRONG SELL based on combined sentiment + technical scoring.
+
+Key feature: Graceful degradation - continues even if individual data providers fail.

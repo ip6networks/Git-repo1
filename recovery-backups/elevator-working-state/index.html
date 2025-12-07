@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cyberpunk Elevator — Principal Security Architect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Tutorial Modal -->
+  <div id="tutorialModal" class="tutorial-modal" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle">
+    <div class="tutorial-content" role="document">
+      <button class="tutorial-close" id="tutorialClose" aria-label="Close tutorial">✕</button>
+      <h2 id="tutorialTitle">Welcome — Cyberpunk Elevator</h2>
+      <p class="sr-only">Use keyboard arrows or click floor buttons to navigate. This site highlights floors as you
+        scroll.</p>
+      <div class="tutorial-sections">
+        <div class="tutorial-section">
+          <h3>Navigation</h3>
+          <ul>
+            <li>Scroll naturally to move between floors.</li>
+            <li>Use the right panel buttons to jump to a specific floor.</li>
+          </ul>
+        </div>
+        <div class="tutorial-section">
+          <h3>Content</h3>
+          <p>Floors: Welcome, Skills, Projects, Experience, Contact — content emphasizes cloud & security leadership.
+          </p>
+        </div>
+      </div>
+      <button class="tutorial-start" id="tutorialStart">Start</button>
+    </div>
+  </div>
+
+  <div class="background-wrapper" aria-hidden="true">
+    <div class="bg-layer bg-prehistoric" id="bg-1"></div>
+    <div class="bg-layer bg-1900s" id="bg-2"></div>
+    <div class="bg-layer bg-present" id="bg-3"></div>
+    <div class="bg-layer bg-future" id="bg-4">
+      <!-- Existing cyberpunk elements can go here or be recreated via CSS -->
+      <div class="cityscape"></div>
+      <div class="sky-layer"></div>
+      <div class="buildings-far"></div>
+      <div class="buildings-mid"></div>
+      <div class="fog-layer fog-1"></div>
+      <div class="fog-layer fog-2"></div>
+      <div class="flying-vehicle" id="vehicle1">🚓</div>
+      <div class="flying-vehicle" id="vehicle2">🚁</div>
+    </div>
+    <div class="bg-layer bg-space" id="bg-5"></div>
+  </div>
+
+  <main class="elevator-container">
+    <div class="elevator-shaft" id="shaft">
+      <section id="floor-1" class="floor floor-1" data-floor="1">
+        <div class="floor-content">
+          <h1>Welcome</h1>
+          <p class="subtitle">Principal Security Architect — cloud security, threat modeling, IAM, DevSecOps.</p>
+          <p style="max-width:700px;margin:12px auto;color:var(--text-secondary);">I design resilient cloud platforms
+            and lead secure-by-design programs for large distributed systems. My work focuses on pragmatic risk
+            reduction, automation, and measurable improvements to security posture.</p>
+          <div style="margin-top:14px;"><a href="#"
+              style="color:var(--neon-cyan);text-decoration:none;border-bottom:1px dashed rgba(0,240,255,0.2);">Download
+              resume</a></div>
+          <div class="scroll-indicator">Scroll to explore • use panel to jump</div>
+        </div>
+      </section>
+
+      <section id="floor-2" class="floor floor-2" data-floor="2">
+        <div class="floor-content">
+          <h2>Skills</h2>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">☁️</div>
+              <h3>Cloud Security</h3>
+              <p>Designing secure cloud architectures, identity, and data protection at scale.</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🛡️</div>
+              <h3>Threat Modeling</h3>
+              <p>Risk-first design and adversary-focused threat models for critical systems.</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🔧</div>
+              <h3>DevSecOps</h3>
+              <p>Automation, secure CI/CD, and continuous verification pipelines.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="floor-3" class="floor floor-3" data-floor="3">
+        <div class="floor-content">
+          <h2>Projects</h2>
+          <div class="projects-list">
+            <div class="project-card">
+              <h3>Enterprise Cloud Hardening</h3>
+              <p class="tech-stack">Cloud security, automation, IaC</p>
+              <p>Led a platform-wide hardening program reducing risk and improving compliance posture.</p>
+            </div>
+            <div class="project-card">
+              <h3>AI Threat Detection</h3>
+              <p class="tech-stack">ML, automation, observability</p>
+              <p>Built an agent-based detection pipeline for anomalous behaviour across services.</p>
+            </div>
+            <div class="project-card">
+              <h3>Automated Red Teaming</h3>
+              <p class="tech-stack">Automation, tooling, CI</p>
+              <p>Developed automated offensive tooling that integrates into CI to continuously validate defenses and
+                prioritize remediation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="floor-4" class="floor floor-4" data-floor="4">
+        <div class="floor-content">
+          <h2>Experience</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2020 — Present</div>
+                <h3>Principal Security Architect</h3>
+                <p>Leading cloud security strategy, architecture reviews, and secure-by-design programs.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2016 — 2020</div>
+                <h3>Senior Security Engineer</h3>
+                <p>Built automation and telemetry to improve detection and response.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="floor-5" class="floor floor-5" data-floor="5">
+        <div class="floor-content">
+          <h2>Contact</h2>
+          <div class="contact-grid">
+            <div class="contact-item">
+              <div class="contact-label">Email</div>
+              <a href="mailto:you@example.com">you@example.com</a>
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Location</div>
+              <p>Remote / San Francisco</p>
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Profiles</div>
+              <p><a href="https://github.com/" target="_blank" rel="noopener"
+                  style="color:var(--neon-green);">GitHub</a> • <a href="https://linkedin.com/" target="_blank"
+                  rel="noopener" style="color:var(--neon-cyan);">LinkedIn</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="floating-controls" aria-hidden="false">
+      <button id="soundToggle" class="sound-toggle" title="Toggle sound" aria-pressed="false">🔊</button>
+      <button id="exitFloor" class="exit-floor-btn" title="Exit floor" aria-hidden="true">Exit</button>
+
+      <div class="elevator-panel" role="navigation" aria-label="Floor selector">
+        <div class="panel-header">FLOORS</div>
+        <div class="floor-buttons">
+          <button class="floor-btn" data-floor="1"><span class="floor-num">1</span><span
+              class="floor-label">Welcome</span></button>
+          <button class="floor-btn" data-floor="2"><span class="floor-num">2</span><span
+              class="floor-label">Skills</span></button>
+          <button class="floor-btn" data-floor="3"><span class="floor-num">3</span><span
+              class="floor-label">Projects</span></button>
+          <button class="floor-btn" data-floor="4"><span class="floor-num">4</span><span
+              class="floor-label">Experience</span></button>
+          <button class="floor-btn" data-floor="5"><span class="floor-num">5</span><span
+              class="floor-label">Contact</span></button>
+        </div>
+        <div class="panel-indicator" aria-hidden="true">
+          <div class="indicator-text">Current</div>
+          <div class="current-floor" id="currentFloor">1</div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
