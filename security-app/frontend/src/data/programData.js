@@ -1,451 +1,197 @@
-export const PROGRAM_DATA = {
-    overview: {
-        companyName: "Enterprise Corp",
-        maturityModel: "NIST CSF 2.0",
-        targetTier: 3
-    },
-    policies: [
-        {
-            id: "POL-01",
-            type: "Policy",
-            title: "Information Security / ISMS Policy",
-            description: "The overarching mandate for the security program.",
-            priority: "Critical",
-            maturity: 1, // 1=Initial, 2=Managed, 3=Defined, 4=Quantitatively Managed, 5=Optimizing
-            status: "Draft",
-            content: {
-                why: "Establishes the authority and scope of the security program.",
-                what: "Defines the CISO role, executive support, and commitment to continuous improvement.",
-                implementation: [
-                    "Draft initial policy statement.",
-                    "Get CEO/Board sign-off.",
-                    "Publish to intranet.",
-                    "Review annually."
-                ]
-            }
-        },
-        {
-            id: "POL-02",
-            type: "Policy",
-            title: "Risk Management Policy",
-            description: "Defines risk appetite, assessment methodology, and treatment.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "We cannot fix everything. We must prioritize based on risk.",
-                what: "Defines 'Low/Med/High' risk, acceptance criteria, and the Risk Register process.",
-                implementation: [
-                    "Define Risk Appetite Statement.",
-                    "Select a Risk Assessment Framework (e.g., NIST SP 800-30).",
-                    "Establish a Risk Committee."
-                ]
-            }
-        },
-        {
-            id: "POL-03",
-            type: "Policy",
-            title: "Policy Exception / Waiver Policy",
-            description: "The formal process for deviating from security rules.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Shadow IT happens when there is no formal way to say 'No' or 'Yes, but...'.",
-                what: "Requires a formal request, risk acceptance, and expiration date for all exceptions.",
-                implementation: [
-                    "Create an Exception Request Form.",
-                    "Define approval levels (Manager vs. CISO vs. CEO).",
-                    "Track all active waivers in a register."
-                ]
-            }
-        },
-        {
-            id: "POL-04",
-            type: "Policy",
-            title: "Asset Management Policy",
-            description: "Inventory, ownership, and lifecycle of assets.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "You cannot protect what you do not know you have.",
-                what: "Requires all hardware and software to be inventoried and have an owner.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-05",
-            type: "Policy",
-            title: "Data Classification & Handling Policy",
-            description: "How to label and treat data (Public, Internal, Confidential, Restricted).",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Not all data is equal. We shouldn't spend millions protecting the lunch menu.",
-                what: "Defines 3-4 levels of classification and rules for encryption, transmission, and destruction.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-06",
-            type: "Policy",
-            title: "Data Retention & Records Management",
-            description: "How long to keep data and when to destroy it.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Hoarding data increases liability and storage costs.",
-                what: "Sets retention schedules based on legal/regulatory requirements.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-07",
-            type: "Policy",
-            title: "Acceptable Use Policy (AUP)",
-            description: "Rules of behavior for employees using company systems.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Users need clear boundaries on what is allowed (e.g., no personal file sharing).",
-                what: "Signed by all employees during onboarding.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-08",
-            type: "Policy",
-            title: "Identity & Access Management (IAM) Policy",
-            description: "Who gets access and how.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Identity is the new perimeter.",
-                what: "Least Privilege, Need-to-Know, MFA requirements.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-09",
-            type: "Policy",
-            title: "Privileged Access Management (PAM) Policy",
-            description: "Special rules for admin accounts.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Admins hold the keys to the kingdom.",
-                what: "No standing privileges, vaulting passwords, session recording.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-10",
-            type: "Policy",
-            title: "Remote Access / Remote Work Policy",
-            description: "Securing access from outside the office.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Remote work extends the attack surface.",
-                what: "VPN/ZTNA requirements, no split-tunneling, device posture checks.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-11",
-            type: "Policy",
-            title: "Endpoint & Mobile Security Policy",
-            description: "Security requirements for laptops, phones, and tablets.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Endpoints are the primary entry point for attackers.",
-                what: "MDM, Disk Encryption, EDR, OS Patching.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-12",
-            type: "Policy",
-            title: "Network Security Policy",
-            description: "Firewalls, segmentation, and wireless security.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Prevent lateral movement if a breach occurs.",
-                what: "Default deny, 802.1x for wireless, DMZ separation.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-13",
-            type: "Policy",
-            title: "Cryptography & Key Management Policy",
-            description: "How we use encryption and manage keys.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Bad crypto is worse than no crypto (false sense of security).",
-                what: "Approved algorithms (e.g., AES-256), key rotation lifecycles.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-14",
-            type: "Policy",
-            title: "Vulnerability Management Policy",
-            description: "Scanning and fixing security flaws.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Unpatched systems are low-hanging fruit for automated attacks.",
-                what: "Quarterly vs Continuous scanning, remediation SLAs.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-15",
-            type: "Policy",
-            title: "Patch Management Policy",
-            description: "Deploying updates to software and OS.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Vulnerability management finds the hole; Patch management fixes it.",
-                what: "Automated patching for endpoints, maintenance windows for servers.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-16",
-            type: "Policy",
-            title: "Secure Configuration / Hardening Policy",
-            description: "Baseline security settings for all systems.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Default configurations are often insecure.",
-                what: "CIS Benchmarks, disabling unused services.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-17",
-            type: "Policy",
-            title: "Change Management Policy",
-            description: "Controlled changes to production systems.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Uncontrolled changes cause outages and security gaps.",
-                what: "CAB (Change Advisory Board), back-out plans, testing requirements.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-18",
-            type: "Policy",
-            title: "Logging & Monitoring Policy",
-            description: "What to log and how long to keep it.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "You can't detect what you don't see.",
-                what: "Centralized logging (SIEM), retention for 1 year (hot/cold).",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-19",
-            type: "Policy",
-            title: "Incident Response Policy",
-            description: "How we react to a breach.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Panic is not a strategy.",
-                what: "IR Team definition, classification of SEV1/SEV2/SEV3.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-20",
-            type: "Policy",
-            title: "Backup Policy",
-            description: "Data backup frequency and testing.",
-            priority: "Critical",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Ransomware defense depends on clean backups.",
-                what: "3-2-1 rule, immutable backups, annual restore testing.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-21",
-            type: "Policy",
-            title: "Business Continuity & Disaster Recovery (BC/DR)",
-            description: "Keeping the business running during disasters.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Survival of the business.",
-                what: "BIA (Business Impact Analysis), RTO/RPO targets.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-22",
-            type: "Policy",
-            title: "Third-Party / Supplier Security Policy",
-            description: "Managing risk from vendors.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Vendors are often the weakest link.",
-                what: "Due diligence before signing, right to audit clauses.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-23",
-            type: "Policy",
-            title: "Security Awareness & Training Policy",
-            description: "Training employees on security.",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "The human firewall needs patching too.",
-                what: "Onboarding training, annual refresher, monthly phishing sims.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-24",
-            type: "Policy",
-            title: "Physical Security Policy",
-            description: "Protecting offices and hardware.",
-            priority: "Medium",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "If they can steal the server, software security doesn't matter.",
-                what: "Badge access, CCTV, visitor logs.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-25",
-            type: "Policy",
-            title: "Privacy / Personal Data Protection Policy",
-            description: "Handling PII/PHI compliance (GDPR, CCPA).",
-            priority: "High",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "It's the law.",
-                what: "Data subject rights, privacy notices, DPA requirements.",
-                implementation: []
-            }
-        },
-        {
-            id: "POL-26",
-            type: "Policy",
-            title: "Data Loss Prevention (DLP) Policy",
-            description: "Preventing sensitive data exfiltration.",
-            priority: "Medium",
-            maturity: 1,
-            status: "Not Started",
-            content: {
-                why: "Accidental data leaks happen every day.",
-                what: "Blocking USBs, monitoring email attachments, cloud sharing restrictions.",
-                implementation: []
-            }
-        }
-    ],
-    standards: [
-        {
-            id: "STD-IAM-01",
-            category: "Identity & Access",
-            title: "MFA Standard",
-            requirement: "MFA enforced for all users. Phishing-resistant MFA for admins and remote access.",
-            status: "Not Started",
-            maturity: 1
-        },
-        {
-            id: "STD-IAM-02",
-            category: "Identity & Access",
-            title: "Account Lifecycle Standard",
-            requirement: "Access removed within 24 hours of employee termination.",
-            status: "Not Started",
-            maturity: 1
-        },
-        {
-            id: "STD-END-01",
-            category: "Endpoint Security",
-            title: "Workstation Hardening",
-            requirement: "Disk encryption (BitLocker/FileVault) enabled on 100% of portable devices.",
-            status: "Not Started",
-            maturity: 1
-        },
-        {
-            id: "STD-NET-01",
-            category: "Network Security",
-            title: "Segmentation Standard",
-            requirement: "Guest Wi-Fi must be completely isolated from the corporate LAN.",
-            status: "Not Started",
-            maturity: 1
-        },
-        {
-            id: "STD-CLOUD-01",
-            category: "Cloud Security",
-            title: "Cloud Logging Standard",
-            requirement: "CloudTrail/Activity Logs enabled in all regions and shipped to central archive.",
-            status: "Not Started",
-            maturity: 1
-        }
-    ],
-    guidelines: [
-        {
-            id: "GDL-01",
-            category: "General",
-            title: "Secure Configuration Guides",
-            description: "Step-by-step hardening for M365, AWS, and Windows 11.",
-            url: "#"
-        },
-        {
-            id: "GDL-02",
-            category: "Incident Response",
-            title: "IR Playbooks",
-            description: "Checklists for Phishing, Ransomware, and Lost Device scenarios.",
-            url: "#"
-        },
-        {
-            id: "GDL-03",
-            category: "Remote Work",
-            title: "Secure Home Office",
-            description: "Tips for securing home Wi-Fi and physical workspace.",
-            url: "#"
-        }
-    ]
+// =============================================================================
+// SECURITY PROGRAM DATA - Items mapped to NIST CSF 2.0 Subcategories
+// =============================================================================
+
+import { DOCUMENT_TYPES, NIST_CSF_2 } from './frameworkData';
+
+// Re-export for convenience
+export { DOCUMENT_TYPES, NIST_CSF_2 };
+export const NIST_FUNCTIONS = {
+    GV: NIST_CSF_2.GV,
+    ID: NIST_CSF_2.ID,
+    PR: NIST_CSF_2.PR,
+    DE: NIST_CSF_2.DE,
+    RS: NIST_CSF_2.RS,
+    RC: NIST_CSF_2.RC
 };
+
+// People, Process, Technology Dimensions
+export const PPT_DIMENSIONS = {
+    People: { id: 'People', label: 'People', icon: '👥', color: '#ff4488' },
+    Process: { id: 'Process', label: 'Process', icon: '📝', color: '#00ccff' },
+    Technology: { id: 'Technology', label: 'Technology', icon: '💻', color: '#aa44ff' }
+};
+
+// =============================================================================
+// PROGRAM ITEMS - Mapped to subcategories
+// =============================================================================
+
+export const PROGRAM_ITEMS = [
+    // =========================================================================
+    // GOVERN (GV) Items
+    // =========================================================================
+
+    // GV.OC - Organizational Context
+    { id: 'GV-POL-001', type: 'Policy', title: 'Information Security Policy', description: 'High-level policy establishing the information security program, CISO authority, and executive commitment.', subcategoryId: 'GV.OC-01', categoryId: 'GV.OC', functionId: 'GV', priority: 'Critical', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.1', '5.2'], dimension: 'Process' },
+    { id: 'GV-POL-002', type: 'Policy', title: 'Legal & Regulatory Compliance Policy', description: 'Defines how legal, regulatory, and contractual cybersecurity requirements are identified and managed.', subcategoryId: 'GV.OC-03', categoryId: 'GV.OC', functionId: 'GV', priority: 'High', phase: 1, effort: 4, status: 'Not Started', isoRef: ['5.31', '5.34'], dimension: 'Process' },
+    { id: 'GV-STD-001', type: 'Standard', title: 'Stakeholder Communication Standard', description: 'Defines how cybersecurity risks are communicated to internal and external stakeholders.', subcategoryId: 'GV.OC-02', categoryId: 'GV.OC', functionId: 'GV', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['5.1'], dimension: 'Process' },
+
+    // GV.RM - Risk Management Strategy
+    { id: 'GV-POL-003', type: 'Policy', title: 'Risk Management Policy', description: 'Defines risk appetite, tolerance levels, assessment methodology, and risk treatment options.', subcategoryId: 'GV.RM-01', categoryId: 'GV.RM', functionId: 'GV', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['5.7', '6.1'], dimension: 'Process' },
+    { id: 'GV-STD-002', type: 'Standard', title: 'Risk Appetite Statement', description: 'Documents organizational risk appetite and tolerance thresholds for cybersecurity risks.', subcategoryId: 'GV.RM-02', categoryId: 'GV.RM', functionId: 'GV', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.7'], dimension: 'Process' },
+    { id: 'GV-STD-003', type: 'Standard', title: 'Risk Scoring Methodology', description: 'Standardized method for calculating, categorizing, and prioritizing cybersecurity risks.', subcategoryId: 'GV.RM-06', categoryId: 'GV.RM', functionId: 'GV', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.7'], dimension: 'Process' },
+    { id: 'GV-SOP-001', type: 'SOP', title: 'Risk Communication Procedure', description: 'Process for communicating cybersecurity risks across organizational levels.', subcategoryId: 'GV.RM-05', categoryId: 'GV.RM', functionId: 'GV', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['5.7'], dimension: 'Process' },
+
+    // GV.RR - Roles, Responsibilities, Authorities
+    { id: 'GV-STD-004', type: 'Standard', title: 'Security Roles & Responsibilities Matrix (RACI)', description: 'Defines roles, responsibilities, and authorities for cybersecurity across the organization.', subcategoryId: 'GV.RR-02', categoryId: 'GV.RR', functionId: 'GV', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.2', '5.3'], dimension: 'People' },
+    { id: 'GV-CTL-001', type: 'Control', title: 'Security Steering Committee', description: 'Executive oversight body accountable for cybersecurity risk decisions.', subcategoryId: 'GV.RR-01', categoryId: 'GV.RR', functionId: 'GV', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.1'], riskReduction: 5, dimension: 'People' },
+
+    // GV.PO - Policy
+    { id: 'GV-POL-004', type: 'Policy', title: 'Policy Exception Management', description: 'Formal process for requesting, approving, and tracking policy exceptions.', subcategoryId: 'GV.PO-02', categoryId: 'GV.PO', functionId: 'GV', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.1'], dimension: 'Process' },
+    { id: 'GV-CTL-002', type: 'Control', title: 'Annual Policy Review Cycle', description: 'Process to review, update, and communicate policies at least annually.', subcategoryId: 'GV.PO-02', categoryId: 'GV.PO', functionId: 'GV', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['5.1'], riskReduction: 3, dimension: 'Process' },
+
+    // GV.OV - Oversight
+    { id: 'GV-CTL-003', type: 'Control', title: 'Quarterly Risk Review', description: 'Executive review of cybersecurity risk management outcomes and strategy adjustments.', subcategoryId: 'GV.OV-01', categoryId: 'GV.OV', functionId: 'GV', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['5.1'], riskReduction: 5, dimension: 'Process' },
+    { id: 'GV-CTL-004', type: 'Control', title: 'Security Metrics Dashboard', description: 'Dashboard to track and report cybersecurity program performance.', subcategoryId: 'GV.OV-03', categoryId: 'GV.OV', functionId: 'GV', priority: 'Medium', phase: 2, effort: 3, status: 'Not Started', isoRef: ['5.1'], riskReduction: 4, dimension: 'Technology' },
+
+    // GV.SC - Supply Chain Risk Management
+    { id: 'GV-POL-005', type: 'Policy', title: 'Third-Party Risk Management Policy', description: 'Requirements for managing cybersecurity risks from suppliers and third parties.', subcategoryId: 'GV.SC-01', categoryId: 'GV.SC', functionId: 'GV', priority: 'High', phase: 2, effort: 5, status: 'Not Started', isoRef: ['5.19', '5.20', '5.21'], dimension: 'Process' },
+    { id: 'GV-STD-005', type: 'Standard', title: 'Vendor Security Assessment Standard', description: 'Criteria and process for assessing supplier cybersecurity before engagement.', subcategoryId: 'GV.SC-06', categoryId: 'GV.SC', functionId: 'GV', priority: 'High', phase: 2, effort: 4, status: 'Not Started', isoRef: ['5.21', '5.22'], dimension: 'Process' },
+    { id: 'GV-SOP-002', type: 'SOP', title: 'Vendor Onboarding Security Review', description: 'Due diligence procedure before entering supplier relationships.', subcategoryId: 'GV.SC-06', categoryId: 'GV.SC', functionId: 'GV', priority: 'Medium', phase: 2, effort: 3, status: 'Not Started', isoRef: ['5.21'], dimension: 'Process' },
+
+    // =========================================================================
+    // IDENTIFY (ID) Items
+    // =========================================================================
+
+    // ID.AM - Asset Management
+    { id: 'ID-POL-001', type: 'Policy', title: 'Asset Management Policy', description: 'Requirements for inventorying, classifying, and managing all IT assets.', subcategoryId: 'ID.AM-01', categoryId: 'ID.AM', functionId: 'ID', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.9', '8.1'], dimension: 'Process' },
+    { id: 'ID-POL-002', type: 'Policy', title: 'Data Classification Policy', description: 'Classification levels and handling requirements for organizational data.', subcategoryId: 'ID.AM-07', categoryId: 'ID.AM', functionId: 'ID', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['5.12', '5.13'], dimension: 'Process' },
+    { id: 'ID-STD-001', type: 'Standard', title: 'Hardware Inventory Standard', description: 'Required attributes and update frequency for hardware asset tracking.', subcategoryId: 'ID.AM-01', categoryId: 'ID.AM', functionId: 'ID', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.9'], dimension: 'Process' },
+    { id: 'ID-STD-002', type: 'Standard', title: 'Software Inventory Standard', description: 'Required attributes and update frequency for software and SaaS tracking.', subcategoryId: 'ID.AM-02', categoryId: 'ID.AM', functionId: 'ID', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.9'], dimension: 'Process' },
+    { id: 'ID-CTL-001', type: 'Control', title: 'Hardware Asset Discovery', description: 'Automated discovery and tracking of all hardware assets.', subcategoryId: 'ID.AM-01', categoryId: 'ID.AM', functionId: 'ID', priority: 'High', phase: 1, effort: 4, status: 'Not Started', isoRef: ['5.9'], riskReduction: 7, dimension: 'Technology' },
+    { id: 'ID-CTL-002', type: 'Control', title: 'Software Asset Management (SAM)', description: 'Tool for discovering and managing software inventory.', subcategoryId: 'ID.AM-02', categoryId: 'ID.AM', functionId: 'ID', priority: 'High', phase: 1, effort: 4, status: 'Not Started', isoRef: ['5.9'], riskReduction: 6, dimension: 'Technology' },
+
+    // ID.RA - Risk Assessment
+    { id: 'ID-SOP-001', type: 'SOP', title: 'Risk Assessment Procedure', description: 'Step-by-step process for conducting cybersecurity risk assessments.', subcategoryId: 'ID.RA-05', categoryId: 'ID.RA', functionId: 'ID', priority: 'High', phase: 1, effort: 4, status: 'Not Started', isoRef: ['5.7', '8.8'], dimension: 'Process' },
+    { id: 'ID-CTL-003', type: 'Control', title: 'Vulnerability Scanner', description: 'Continuous vulnerability scanning of all networked assets.', subcategoryId: 'ID.RA-01', categoryId: 'ID.RA', functionId: 'ID', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['8.8'], riskReduction: 9, dimension: 'Technology' },
+    { id: 'ID-CTL-004', type: 'Control', title: 'Threat Intelligence Feed', description: 'Integration of external cyber threat intelligence.', subcategoryId: 'ID.RA-02', categoryId: 'ID.RA', functionId: 'ID', priority: 'Medium', phase: 2, effort: 3, status: 'Not Started', isoRef: ['5.7'], riskReduction: 5, dimension: 'Technology' },
+    { id: 'ID-SOP-002', type: 'SOP', title: 'Vulnerability Disclosure Handling', description: 'Process for receiving and responding to vulnerability disclosures.', subcategoryId: 'ID.RA-08', categoryId: 'ID.RA', functionId: 'ID', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['8.8'], dimension: 'Process' },
+
+    // =========================================================================
+    // PROTECT (PR) Items
+    // =========================================================================
+
+    // PR.AA - Identity Management, Authentication, Access Control
+    { id: 'PR-POL-001', type: 'Policy', title: 'Access Control Policy', description: 'Least privilege, need-to-know, and role-based access requirements.', subcategoryId: 'PR.AA-05', categoryId: 'PR.AA', functionId: 'PR', priority: 'Critical', phase: 1, effort: 4, status: 'Not Started', isoRef: ['5.15', '5.16'], dimension: 'Process' },
+    { id: 'PR-POL-002', type: 'Policy', title: 'Privileged Access Management Policy', description: 'Special controls for administrative accounts: vaulting, JIT access, session recording.', subcategoryId: 'PR.AA-05', categoryId: 'PR.AA', functionId: 'PR', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['8.2'], dimension: 'Process' },
+    { id: 'PR-STD-001', type: 'Standard', title: 'MFA Standard', description: 'Multi-factor authentication required for all users; phishing-resistant for admins.', subcategoryId: 'PR.AA-03', categoryId: 'PR.AA', functionId: 'PR', priority: 'Critical', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.17', '8.5'], dimension: 'Process' },
+    { id: 'PR-STD-002', type: 'Standard', title: 'Password Standard', description: 'Minimum 14 characters, complexity requirements, secure storage.', subcategoryId: 'PR.AA-03', categoryId: 'PR.AA', functionId: 'PR', priority: 'High', phase: 1, effort: 1, status: 'Not Started', isoRef: ['5.17'], dimension: 'Process' },
+    { id: 'PR-SOP-001', type: 'SOP', title: 'User Onboarding Procedure', description: 'Access provisioning steps for new employees.', subcategoryId: 'PR.AA-01', categoryId: 'PR.AA', functionId: 'PR', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.16'], dimension: 'Process' },
+    { id: 'PR-SOP-002', type: 'SOP', title: 'User Offboarding Procedure', description: 'Access revocation within 24 hours of termination.', subcategoryId: 'PR.AA-01', categoryId: 'PR.AA', functionId: 'PR', priority: 'Critical', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.18'], dimension: 'Process' },
+    { id: 'PR-SOP-003', type: 'SOP', title: 'Access Review Procedure', description: 'Quarterly review of user access rights and entitlements.', subcategoryId: 'PR.AA-05', categoryId: 'PR.AA', functionId: 'PR', priority: 'High', phase: 2, effort: 2, status: 'Not Started', isoRef: ['5.18'], dimension: 'Process' },
+    { id: 'PR-CTL-001', type: 'Control', title: 'Multi-Factor Authentication (MFA)', description: 'MFA enabled for all cloud applications and VPN access.', subcategoryId: 'PR.AA-03', categoryId: 'PR.AA', functionId: 'PR', priority: 'Critical', phase: 1, effort: 3, status: 'Not Started', isoRef: ['8.5'], riskReduction: 9, dimension: 'Technology' },
+    { id: 'PR-CTL-002', type: 'Control', title: 'Privileged Access Management (PAM)', description: 'Password vaulting and just-in-time access for admin accounts.', subcategoryId: 'PR.AA-05', categoryId: 'PR.AA', functionId: 'PR', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['8.2'], riskReduction: 8, dimension: 'Technology' },
+
+    // PR.AT - Awareness and Training
+    { id: 'PR-POL-003', type: 'Policy', title: 'Security Awareness Training Policy', description: 'Training requirements for all employees including onboarding and annual refresher.', subcategoryId: 'PR.AT-01', categoryId: 'PR.AT', functionId: 'PR', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['6.3'], dimension: 'Process' },
+    { id: 'PR-POL-004', type: 'Policy', title: 'Acceptable Use Policy', description: 'Rules of behavior for employees using company systems and data.', subcategoryId: 'PR.AT-01', categoryId: 'PR.AT', functionId: 'PR', priority: 'Critical', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.10'], dimension: 'People' },
+    { id: 'PR-CTL-003', type: 'Control', title: 'Security Awareness Platform', description: 'Automated training delivery with tracking and reporting.', subcategoryId: 'PR.AT-01', categoryId: 'PR.AT', functionId: 'PR', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['6.3'], riskReduction: 6, dimension: 'Technology' },
+    { id: 'PR-CTL-004', type: 'Control', title: 'Phishing Simulation', description: 'Monthly simulated phishing campaigns with remediation training.', subcategoryId: 'PR.AT-02', categoryId: 'PR.AT', functionId: 'PR', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['6.3'], riskReduction: 5, dimension: 'Technology' },
+
+    // PR.DS - Data Security
+    { id: 'PR-POL-005', type: 'Policy', title: 'Cryptography Policy', description: 'Approved algorithms, key management, and encryption requirements.', subcategoryId: 'PR.DS-01', categoryId: 'PR.DS', functionId: 'PR', priority: 'High', phase: 2, effort: 4, status: 'Not Started', isoRef: ['8.24'], dimension: 'Process' },
+    { id: 'PR-STD-003', type: 'Standard', title: 'Encryption Standard', description: 'AES-256 at rest, TLS 1.2+ in transit, RSA-2048+ for keys.', subcategoryId: 'PR.DS-01', categoryId: 'PR.DS', functionId: 'PR', priority: 'High', phase: 2, effort: 3, status: 'Not Started', isoRef: ['8.24'], dimension: 'Process' },
+    { id: 'PR-CTL-005', type: 'Control', title: 'Disk Encryption', description: 'BitLocker/FileVault on all portable devices.', subcategoryId: 'PR.DS-01', categoryId: 'PR.DS', functionId: 'PR', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['8.24'], riskReduction: 7, dimension: 'Technology' },
+    { id: 'PR-CTL-006', type: 'Control', title: 'Immutable Backups', description: '3-2-1 backup strategy with immutable off-site copies.', subcategoryId: 'PR.DS-11', categoryId: 'PR.DS', functionId: 'PR', priority: 'Critical', phase: 1, effort: 4, status: 'Not Started', isoRef: ['8.13'], riskReduction: 9, dimension: 'Technology' },
+
+    // PR.PS - Platform Security
+    { id: 'PR-POL-006', type: 'Policy', title: 'Endpoint Security Policy', description: 'Requirements for laptops, desktops, and mobile devices: EDR, encryption, patching.', subcategoryId: 'PR.PS-01', categoryId: 'PR.PS', functionId: 'PR', priority: 'Critical', phase: 1, effort: 4, status: 'Not Started', isoRef: ['8.1', '8.9'], dimension: 'Process' },
+    { id: 'PR-POL-007', type: 'Policy', title: 'Patch Management Policy', description: 'Patching SLAs by severity, maintenance windows, and exception process.', subcategoryId: 'PR.PS-02', categoryId: 'PR.PS', functionId: 'PR', priority: 'Critical', phase: 1, effort: 3, status: 'Not Started', isoRef: ['8.8'], dimension: 'Process' },
+    { id: 'PR-STD-004', type: 'Standard', title: 'Workstation Hardening Standard', description: 'CIS Benchmark baselines for Windows and macOS workstations.', subcategoryId: 'PR.PS-01', categoryId: 'PR.PS', functionId: 'PR', priority: 'High', phase: 2, effort: 4, status: 'Not Started', isoRef: ['8.9'], dimension: 'Process' },
+    { id: 'PR-STD-005', type: 'Standard', title: 'Server Hardening Standard', description: 'CIS Benchmark baselines for production servers.', subcategoryId: 'PR.PS-01', categoryId: 'PR.PS', functionId: 'PR', priority: 'High', phase: 2, effort: 5, status: 'Not Started', isoRef: ['8.9'], dimension: 'Process' },
+    { id: 'PR-STD-006', type: 'Standard', title: 'Vulnerability Remediation SLA', description: 'Critical: 7 days, High: 30 days, Medium: 90 days, Low: 180 days.', subcategoryId: 'PR.PS-02', categoryId: 'PR.PS', functionId: 'PR', priority: 'Critical', phase: 1, effort: 2, status: 'Not Started', isoRef: ['8.8'], dimension: 'Process' },
+    { id: 'PR-SOP-004', type: 'SOP', title: 'Patch Deployment Procedure', description: 'Testing and deploying patches to endpoints and servers.', subcategoryId: 'PR.PS-02', categoryId: 'PR.PS', functionId: 'PR', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['8.8'], dimension: 'Process' },
+    { id: 'PR-CTL-007', type: 'Control', title: 'Endpoint Detection & Response (EDR)', description: 'EDR agent deployed on all endpoints with 24/7 monitoring.', subcategoryId: 'PR.PS-01', categoryId: 'PR.PS', functionId: 'PR', priority: 'Critical', phase: 1, effort: 4, status: 'Not Started', isoRef: ['8.7'], riskReduction: 10, dimension: 'Technology' },
+
+    // PR.IR - Technology Infrastructure Resilience
+    { id: 'PR-POL-008', type: 'Policy', title: 'Network Security Policy', description: 'Firewall rules, segmentation, wireless security, and perimeter defense.', subcategoryId: 'PR.IR-01', categoryId: 'PR.IR', functionId: 'PR', priority: 'High', phase: 1, effort: 4, status: 'Not Started', isoRef: ['8.20', '8.21'], dimension: 'Process' },
+    { id: 'PR-CTL-008', type: 'Control', title: 'Network Segmentation', description: 'VLANs separating prod, dev, guest, and IoT networks.', subcategoryId: 'PR.IR-01', categoryId: 'PR.IR', functionId: 'PR', priority: 'High', phase: 2, effort: 5, status: 'Not Started', isoRef: ['8.22'], riskReduction: 7, dimension: 'Technology' },
+
+    // =========================================================================
+    // DETECT (DE) Items
+    // =========================================================================
+
+    // DE.CM - Continuous Monitoring
+    { id: 'DE-POL-001', type: 'Policy', title: 'Logging & Monitoring Policy', description: 'Log sources, retention periods, and security monitoring requirements.', subcategoryId: 'DE.CM-01', categoryId: 'DE.CM', functionId: 'DE', priority: 'High', phase: 2, effort: 5, status: 'Not Started', isoRef: ['8.15', '8.16'], dimension: 'Process' },
+    { id: 'DE-STD-001', type: 'Standard', title: 'Security Logging Standard', description: 'Required log sources, formats, and retention periods.', subcategoryId: 'DE.CM-01', categoryId: 'DE.CM', functionId: 'DE', priority: 'High', phase: 2, effort: 4, status: 'Not Started', isoRef: ['8.15', '8.17'], dimension: 'Process' },
+    { id: 'DE-CTL-001', type: 'Control', title: 'SIEM Platform', description: 'Centralized log aggregation with correlation and alerting.', subcategoryId: 'DE.CM-01', categoryId: 'DE.CM', functionId: 'DE', priority: 'High', phase: 2, effort: 7, status: 'Not Started', isoRef: ['8.15', '8.16'], riskReduction: 8, dimension: 'Technology' },
+    { id: 'DE-CTL-002', type: 'Control', title: 'Network IDS/IPS', description: 'Network-based intrusion detection at perimeter and critical segments.', subcategoryId: 'DE.CM-01', categoryId: 'DE.CM', functionId: 'DE', priority: 'Medium', phase: 3, effort: 5, status: 'Not Started', isoRef: ['8.16'], riskReduction: 6, dimension: 'Technology' },
+
+    // DE.AE - Adverse Event Analysis
+    { id: 'DE-SOP-001', type: 'SOP', title: 'Log Review Procedure', description: 'Daily review of security alerts and anomalies.', subcategoryId: 'DE.AE-02', categoryId: 'DE.AE', functionId: 'DE', priority: 'High', phase: 2, effort: 2, status: 'Not Started', isoRef: ['8.16'], dimension: 'Process' },
+    { id: 'DE-SOP-002', type: 'SOP', title: 'Alert Triage Procedure', description: 'Process for analyzing and escalating security alerts.', subcategoryId: 'DE.AE-04', categoryId: 'DE.AE', functionId: 'DE', priority: 'High', phase: 2, effort: 2, status: 'Not Started', isoRef: ['8.16'], dimension: 'Process' },
+
+    // =========================================================================
+    // RESPOND (RS) Items
+    // =========================================================================
+
+    // RS.MA - Incident Management
+    { id: 'RS-POL-001', type: 'Policy', title: 'Incident Response Policy', description: 'IR team structure, severity classification, and escalation requirements.', subcategoryId: 'RS.MA-01', categoryId: 'RS.MA', functionId: 'RS', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['5.24', '5.25'], dimension: 'Process' },
+    { id: 'RS-SOP-001', type: 'SOP', title: 'Incident Triage Procedure', description: 'Initial assessment, classification, and escalation process.', subcategoryId: 'RS.MA-02', categoryId: 'RS.MA', functionId: 'RS', priority: 'Critical', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.25'], dimension: 'Process' },
+
+    // RS.AN - Incident Analysis
+    { id: 'RS-SOP-002', type: 'SOP', title: 'Evidence Collection Procedure', description: 'Forensic evidence preservation and chain of custody.', subcategoryId: 'RS.AN-07', categoryId: 'RS.AN', functionId: 'RS', priority: 'High', phase: 2, effort: 3, status: 'Not Started', isoRef: ['5.28'], dimension: 'Process' },
+
+    // RS.CO - Incident Response Communication
+    { id: 'RS-SOP-003', type: 'SOP', title: 'Incident Notification Procedure', description: 'Process for notifying stakeholders about security incidents.', subcategoryId: 'RS.CO-02', categoryId: 'RS.CO', functionId: 'RS', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['5.24'], dimension: 'Process' },
+
+    // RS.MI - Incident Mitigation
+    { id: 'RS-PB-001', type: 'Playbook', title: 'Ransomware Response Playbook', description: 'Strategic response to ransomware including containment and recovery.', subcategoryId: 'RS.MI-01', categoryId: 'RS.MI', functionId: 'RS', priority: 'Critical', phase: 1, effort: 5, status: 'Not Started', isoRef: ['5.24', '5.26'], dimension: 'Process' },
+    { id: 'RS-PB-002', type: 'Playbook', title: 'Phishing Response Playbook', description: 'Handling reported phishing and potential account compromise.', subcategoryId: 'RS.MI-01', categoryId: 'RS.MI', functionId: 'RS', priority: 'Critical', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.24'], dimension: 'Process' },
+    { id: 'RS-PB-003', type: 'Playbook', title: 'Data Breach Response Playbook', description: 'Response to confirmed data exfiltration including notification requirements.', subcategoryId: 'RS.MI-01', categoryId: 'RS.MI', functionId: 'RS', priority: 'Critical', phase: 1, effort: 7, status: 'Not Started', isoRef: ['5.24', '5.34'], dimension: 'Process' },
+    { id: 'RS-PB-004', type: 'Playbook', title: 'Account Compromise Playbook', description: 'Response to stolen credentials or hijacked accounts.', subcategoryId: 'RS.MI-01', categoryId: 'RS.MI', functionId: 'RS', priority: 'High', phase: 1, effort: 3, status: 'Not Started', isoRef: ['5.24'], dimension: 'Process' },
+    { id: 'RS-RB-001', type: 'Runbook', title: 'Endpoint Isolation Runbook', description: 'Steps to isolate compromised endpoint via EDR.', subcategoryId: 'RS.MI-01', categoryId: 'RS.MI', functionId: 'RS', priority: 'Critical', phase: 1, effort: 1, status: 'Not Started', isoRef: ['5.26'], dimension: 'Process' },
+    { id: 'RS-RB-002', type: 'Runbook', title: 'Credential Reset Runbook', description: 'Force password reset and MFA re-enrollment.', subcategoryId: 'RS.MI-02', categoryId: 'RS.MI', functionId: 'RS', priority: 'High', phase: 1, effort: 1, status: 'Not Started', isoRef: ['5.17'], dimension: 'Process' },
+
+    // =========================================================================
+    // RECOVER (RC) Items
+    // =========================================================================
+
+    // RC.RP - Incident Recovery Plan Execution
+    { id: 'RC-POL-001', type: 'Policy', title: 'Business Continuity Policy', description: 'BIA requirements, RTO/RPO targets, and continuity planning.', subcategoryId: 'RC.RP-01', categoryId: 'RC.RP', functionId: 'RC', priority: 'High', phase: 2, effort: 7, status: 'Not Started', isoRef: ['5.29', '5.30'], dimension: 'Process' },
+    { id: 'RC-POL-002', type: 'Policy', title: 'Backup Policy', description: 'Backup frequency, testing, and 3-2-1 strategy requirements.', subcategoryId: 'RC.RP-02', categoryId: 'RC.RP', functionId: 'RC', priority: 'Critical', phase: 1, effort: 3, status: 'Not Started', isoRef: ['8.13'], dimension: 'Process' },
+    { id: 'RC-SOP-001', type: 'SOP', title: 'Backup Verification Procedure', description: 'Testing backup integrity and restore capability.', subcategoryId: 'RC.RP-02', categoryId: 'RC.RP', functionId: 'RC', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['8.13'], dimension: 'Process' },
+    { id: 'RC-SOP-002', type: 'SOP', title: 'Data Restore Procedure', description: 'Steps to restore data from backups.', subcategoryId: 'RC.RP-02', categoryId: 'RC.RP', functionId: 'RC', priority: 'High', phase: 1, effort: 2, status: 'Not Started', isoRef: ['8.13'], dimension: 'Process' },
+    { id: 'RC-PB-001', type: 'Playbook', title: 'BC/DR Activation Playbook', description: 'Steps to activate continuity and recovery plans.', subcategoryId: 'RC.RP-01', categoryId: 'RC.RP', functionId: 'RC', priority: 'High', phase: 2, effort: 5, status: 'Not Started', isoRef: ['5.30'], dimension: 'Process' },
+    { id: 'RC-RB-001', type: 'Runbook', title: 'DR Failover Runbook', description: 'Technical steps for failover to DR site.', subcategoryId: 'RC.RP-04', categoryId: 'RC.RP', functionId: 'RC', priority: 'High', phase: 3, effort: 5, status: 'Not Started', isoRef: ['5.30'], dimension: 'Process' },
+
+    // RC.CO - Incident Recovery Communication
+    { id: 'RC-SOP-003', type: 'SOP', title: 'Post-Incident Review Procedure', description: 'Lessons learned and improvement actions after incidents.', subcategoryId: 'RC.CO-03', categoryId: 'RC.CO', functionId: 'RC', priority: 'Medium', phase: 2, effort: 2, status: 'Not Started', isoRef: ['5.27'], dimension: 'Process' }
+];
+
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
+
+export const getAllItems = () => PROGRAM_ITEMS;
+
+export const getItemsByFunction = (functionId) =>
+    PROGRAM_ITEMS.filter(item => item.functionId === functionId);
+
+export const getItemsByCategory = (categoryId) =>
+    PROGRAM_ITEMS.filter(item => item.categoryId === categoryId);
+
+export const getItemsBySubcategory = (subcategoryId) =>
+    PROGRAM_ITEMS.filter(item => item.subcategoryId === subcategoryId);
+
+export const getItemsByType = (type) =>
+    PROGRAM_ITEMS.filter(item => item.type === type);
+
+export const getItemsByStatus = (status) =>
+    PROGRAM_ITEMS.filter(item => item.status === status);
+
+export const getItemsByPhase = (phase) =>
+    PROGRAM_ITEMS.filter(item => item.phase === phase);
+
+export const getItemsByDimension = (dimension) =>
+    PROGRAM_ITEMS.filter(item => item.dimension === dimension);

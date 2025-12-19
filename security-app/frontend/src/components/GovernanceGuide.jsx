@@ -127,7 +127,8 @@ const MATURITY_ROADMAP = [
     }
 ];
 
-import { POLICIES, GOVERNANCE_TEMPLATES } from '../data/mockData';
+import { GOVERNANCE_TEMPLATES } from '../data/mockData';
+import { useGovernance } from '../context/GovernanceContext';
 
 const TemplatesBrowser = () => {
     const [selectedType, setSelectedType] = useState('Policy');
@@ -176,7 +177,8 @@ const TemplatesBrowser = () => {
 };
 
 const PriorityEngine = () => {
-    const gaps = POLICIES.filter(p => p.status === 'Not Started' || p.status === 'Draft');
+    const { documents } = useGovernance();
+    const gaps = documents.filter(p => p.status === 'Not Started' || p.status === 'Draft');
     const highPriority = gaps.filter(p =>
         p.mapping?.some(m => m.includes('GV') || m.includes('PR') || m.includes('RC'))
     );
@@ -341,50 +343,73 @@ const GovernanceGuide = () => {
                 </div>
             )}
 
-            {activeTab === 'maturity' && (
-                <div>
-                    <div style={{ marginBottom: '40px', padding: '24px', background: 'rgba(0, 255, 157, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--primary)' }}>
-                        <h3 style={{ marginBottom: '12px', fontSize: '20px' }}>Enterprise Maturity Path (Full NIST CSF 2.0)</h3>
-                        <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                            A mature enterprise moves from <strong>documented</strong> policies to <strong>measured</strong> and <strong>optimized</strong> operations.
-                            This roadmap covers the critical baseline across all 6 NIST CSF 2.0 functions.
-                        </p>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
-                        {MATURITY_ROADMAP.map(group => (
-                            <div key={group.function} className="glass-panel" style={{ padding: '24px' }}>
-                                <h4 style={{ color: 'var(--primary)', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '12px', fontSize: '18px' }}>
-                                    {group.function}
-                                </h4>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                    {group.items.map(item => (
-                                        <div key={item.id} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                                            <div style={{
-                                                minWidth: '24px', height: '24px', borderRadius: '50%',
-                                                background: item.maturity === 'Published' ? 'var(--primary)' : 'rgba(255,255,255,0.2)',
-                                                display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'black', fontSize: '10px', fontWeight: 'bold',
-                                                marginTop: '4px'
-                                            }}>
-                                                {item.maturity === 'Published' ? '✓' : ''}
-                                            </div>
-                                            <div>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                                                    <span style={{ fontWeight: '700', fontSize: '15px' }}>{item.name}</span>
-                                                    <span style={{ fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>{item.id}</span>
-                                                </div>
-                                                <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>{item.desc}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
+            {activeTab === 'maturity' && <MaturityRoadmapView />}
 
             {activeTab === 'priority' && <PriorityEngine />}
+        </div>
+    );
+};
+
+// New component for dynamic Maturity Roadmap
+const MaturityRoadmapView = () => {
+    const { documents } = useGovernance();
+
+    // Helper to find a document's status by matching name keywords
+    const getDocumentStatus = (itemName) => {
+        const doc = documents.find(d =>
+            d.title.toLowerCase().includes(itemName.toLowerCase().split(' ')[0]) ||
+            itemName.toLowerCase().includes(d.title.toLowerCase().split(' ')[0])
+        );
+        return doc ? doc.status : 'Not Started';
+    };
+
+    return (
+        <div>
+            <div style={{ marginBottom: '40px', padding: '24px', background: 'rgba(0, 255, 157, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--primary)' }}>
+                <h3 style={{ marginBottom: '12px', fontSize: '20px' }}>Enterprise Maturity Path (Full NIST CSF 2.0)</h3>
+                <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                    Status is <strong>dynamically synced</strong> with your Governance Library. Toggle document statuses in the Library to see changes here.
+                </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+                {MATURITY_ROADMAP.map(group => (
+                    <div key={group.function} className="glass-panel" style={{ padding: '24px' }}>
+                        <h4 style={{ color: 'var(--primary)', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '12px', fontSize: '18px' }}>
+                            {group.function}
+                        </h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            {group.items.map(item => {
+                                const liveStatus = getDocumentStatus(item.name);
+                                return (
+                                    <div key={item.id} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                                        <div style={{
+                                            minWidth: '24px', height: '24px', borderRadius: '50%',
+                                            background: liveStatus === 'Published' ? 'var(--primary)' : liveStatus === 'Draft' ? '#ffca28' : 'rgba(255,255,255,0.2)',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'black', fontSize: '10px', fontWeight: 'bold',
+                                            marginTop: '4px'
+                                        }}>
+                                            {liveStatus === 'Published' ? '✓' : liveStatus === 'Draft' ? '◐' : ''}
+                                        </div>
+                                        <div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                                                <span style={{ fontWeight: '700', fontSize: '15px' }}>{item.name}</span>
+                                                <span style={{
+                                                    fontSize: '10px', fontFamily: 'monospace', marginLeft: '12px',
+                                                    color: liveStatus === 'Published' ? 'var(--primary)' : liveStatus === 'Draft' ? '#ffca28' : 'var(--text-muted)'
+                                                }}>
+                                                    {liveStatus}
+                                                </span>
+                                            </div>
+                                            <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>{item.desc}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

@@ -1,60 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import matter from 'gray-matter';
-import { POLICIES, GOVERNANCE_TEMPLATES } from '../data/mockData';
+import { GOVERNANCE_TEMPLATES } from '../data/mockData';
+import { useGovernance } from '../context/GovernanceContext';
 import GovernanceGuide from './GovernanceGuide';
 
 const PolicyCenter = () => {
-    const [policies, setPolicies] = useState([]);
+    const { documents, updateDocumentStatus } = useGovernance();
     const [filteredPolicies, setFilteredPolicies] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [view, setView] = useState('library');
     const [searchQuery, setSearchQuery] = useState('');
     const [statusFilter, setStatusFilter] = useState('All');
     const [activeTemplate, setActiveTemplate] = useState(null);
 
     useEffect(() => {
-        const fetchPolicies = async () => {
-            try {
-                const response = await axios.get('https://api.github.com/repos/ip6networks/Git-repo1/contents/01-Governance');
-                const files = response.data.filter(file => file.name.endsWith('.md'));
-                const policiesData = await Promise.all(files.map(async (file) => {
-                    const contentResponse = await axios.get(file.download_url);
-                    const { data } = matter(contentResponse.data);
-                    return {
-                        id: file.name.replace('.md', ''),
-                        title: data.title || file.name.replace('.md', ''),
-                        status: data.status || 'Draft',
-                        owner: data.owner || 'Unknown',
-                        lastReview: data.lastReview || 'N/A',
-                        type: data.type || 'Policy',
-                        mapping: data.mapping || []
-                    };
-                }));
-                if (policiesData.length > 0) {
-                    setPolicies(policiesData);
-                } else {
-                    setPolicies(POLICIES);
-                }
-            } catch (error) {
-                console.log('API fetch failed. Using expanded mock data.', error);
-                setPolicies(POLICIES);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPolicies();
-    }, []);
-
-    useEffect(() => {
-        const filtered = policies.filter(p => {
+        const filtered = documents.filter(p => {
             const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 p.id.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesStatus = statusFilter === 'All' || p.status === statusFilter;
             return matchesSearch && matchesStatus;
         });
         setFilteredPolicies(filtered);
-    }, [searchQuery, statusFilter, policies]);
+    }, [searchQuery, statusFilter, documents]);
 
     const getTypeColor = (type) => {
         switch (type) {
@@ -192,7 +160,7 @@ const PolicyCenter = () => {
 
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '20px' }}>
                                         <span style={{ color: 'var(--text-muted)' }}>Rev: {doc.lastReview}</span>
-                                        <div style={{ display: 'flex', gap: '8px' }}>
+                                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                                             {doc.status !== 'Published' && (
                                                 <button
                                                     onClick={() => setActiveTemplate({ type: doc.type, title: doc.title })}
@@ -204,14 +172,22 @@ const PolicyCenter = () => {
                                                     TEMPLATE
                                                 </button>
                                             )}
-                                            <button
+                                            <select
+                                                value={doc.status}
+                                                onChange={(e) => updateDocumentStatus(doc.id, e.target.value)}
                                                 style={{
-                                                    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white',
-                                                    padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '800'
+                                                    background: doc.status === 'Published' ? 'rgba(0, 255, 157, 0.15)' : doc.status === 'Draft' ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255,255,255,0.05)',
+                                                    border: `1px solid ${doc.status === 'Published' ? 'var(--primary)' : doc.status === 'Draft' ? '#ffca28' : 'rgba(255,255,255,0.2)'}`,
+                                                    color: doc.status === 'Published' ? 'var(--primary)' : doc.status === 'Draft' ? '#ffca28' : 'white',
+                                                    padding: '8px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '800',
+                                                    appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none',
+                                                    textAlign: 'center', minWidth: '110px'
                                                 }}
                                             >
-                                                {doc.status === 'Published' ? 'VIEW' : 'EDIT'}
-                                            </button>
+                                                <option value="Not Started">Not Started</option>
+                                                <option value="Draft">Draft</option>
+                                                <option value="Published">Published</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

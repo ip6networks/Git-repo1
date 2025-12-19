@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ProgramProvider, useProgram } from './context/ProgramContext';
+import { GovernanceProvider } from './context/GovernanceContext';
 import { Layout } from './components/Layout';
+
+// Core Components
 import Dashboard from './components/Dashboard';
-import Library from './components/Library';
-import ItemDetail from './components/ItemDetail';
-import IntakeWizard from './components/IntakeWizard';
-import PolicyGenerator from './components/PolicyGenerator';
-import RiskRegister from './components/RiskRegister';
-import ControlsView from './components/ControlsView';
-import FrameworkNavigator from './components/FrameworkNavigator';
+import ProgramBuilder from './components/ProgramBuilder';
+import RiskCenter from './components/RiskCenter';
 import RoadmapView from './components/RoadmapView';
+import FrameworkNavigator from './components/FrameworkNavigator';
 import EvidenceRepository from './components/EvidenceRepository';
-import PolicyCenter from './components/PolicyCenter';
+import IntakeWizard from './components/IntakeWizard';
 
 // Guard to redirect to Intake if not configured
 const RequireConfig = ({ children }) => {
@@ -26,81 +25,59 @@ const RequireConfig = ({ children }) => {
 function App() {
   return (
     <ProgramProvider>
-      <Router>
-        <Routes>
-          <Route path="/intake" element={<IntakeWizard />} />
-          <Route path="/" element={
-            <RequireConfig>
-              <Layout>
-                <Dashboard />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/roadmap" element={
-            <RequireConfig>
-              <Layout>
-                <RoadmapView />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/library" element={
-            <RequireConfig>
-              <Layout>
-                <Library />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/library/:id" element={
-            <RequireConfig>
-              <Layout>
-                <ItemDetail />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/library/:id/edit" element={
-            <RequireConfig>
-              <Layout>
-                <PolicyGenerator />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/frameworks" element={
-            <RequireConfig>
-              <Layout>
-                <FrameworkNavigator />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/risks" element={
-            <RequireConfig>
-              <Layout>
-                <RiskRegister />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/controls" element={
-            <RequireConfig>
-              <Layout>
-                <ControlsView />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/evidence" element={
-            <RequireConfig>
-              <Layout>
-                <EvidenceRepository />
-              </Layout>
-            </RequireConfig>
-          } />
-          <Route path="/governance" element={
-            <RequireConfig>
-              <Layout>
-                <PolicyCenter />
-              </Layout>
-            </RequireConfig>
-          } />
-        </Routes>
-      </Router>
+      <GovernanceProvider>
+        <Router>
+          <Routes>
+            {/* Intake Wizard - No Layout */}
+            <Route path="/intake" element={<IntakeWizard />} />
+
+            {/* Dashboard */}
+            <Route path="/" element={
+              <RequireConfig>
+                <Layout><Dashboard /></Layout>
+              </RequireConfig>
+            } />
+
+            {/* Program Builder - Unified governance & controls */}
+            <Route path="/program" element={
+              <RequireConfig>
+                <Layout><ProgramBuilder /></Layout>
+              </RequireConfig>
+            } />
+
+            {/* Risk Management */}
+            <Route path="/risk" element={
+              <RequireConfig>
+                <Layout><RiskCenter /></Layout>
+              </RequireConfig>
+            } />
+
+            {/* Roadmap */}
+            <Route path="/roadmap" element={
+              <RequireConfig>
+                <Layout><RoadmapView /></Layout>
+              </RequireConfig>
+            } />
+
+            {/* Framework Reference */}
+            <Route path="/frameworks" element={
+              <RequireConfig>
+                <Layout><FrameworkNavigator /></Layout>
+              </RequireConfig>
+            } />
+
+            {/* Evidence Repository */}
+            <Route path="/evidence" element={
+              <RequireConfig>
+                <Layout><EvidenceRepository /></Layout>
+              </RequireConfig>
+            } />
+
+            {/* Catch-all redirect */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Router>
+      </GovernanceProvider>
     </ProgramProvider>
   );
 }
